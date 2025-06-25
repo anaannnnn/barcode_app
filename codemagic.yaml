@@ -7,7 +7,7 @@ workflows:
         XCODE_SCHEME: "stockbarcodereader"
         APP_ID: "com.ananapp.stockbarcodereader"
       xcode: latest
-      cocoapods: false
+      
     triggering:
       events:
         - push
