@@ -40,8 +40,7 @@ workflows:
 
     publishing:
       app_store_connect:
-        apple_id: mohdanan123@gmail.com
-        password: Cheruvath@321
-        team_id: Z8RZ73XQCY
-        app_id: com.ananapp.stockbarcodereaderk
-        
+        apple_id: your_apple_email@example.com
+        password: $APP_STORE_CONNECT_PASSWORD
+        team_id: YOUR_TEAM_ID
+        app_id: $APP_ID
