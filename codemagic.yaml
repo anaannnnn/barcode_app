@@ -2,7 +2,7 @@ workflows:
 ios-build:
 environment:
 groups:
-- ios_signing
+ ios_signing
   ios-stockbarcodereader
     name: Build and Distribute stockbarcodereader
     environment:
