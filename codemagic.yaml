@@ -1,0 +1,47 @@
+workflows:
+  ios-stockbarcodereader:
+    name: Build and Distribute stockbarcodereader
+    environment:
+      vars:
+        XCODE_WORKSPACE: "stockbarcodereader.xcodeproj"
+        XCODE_SCHEME: "stockbarcodereader"
+        APP_ID: "com.ananapp.stockbarcodereader"
+      xcode: latest
+      cocoapods: false
+    triggering:
+      events:
+        - push
+    scripts:
+      - name: Set build number
+        script: |
+          BUILD_NUMBER=$(($BUILD_NUMBER + 1))
+          echo "Incremented Build Number: $BUILD_NUMBER"
+      - name: Install dependencies
+        script: |
+          echo "No dependencies to install"
+      - name: Build IPA
+        script: |
+          xcodebuild -project "$XCODE_WORKSPACE" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath $CM_BUILD_DIR/$XCODE_SCHEME.xcarchive \
+            clean archive
+
+          xcodebuild -exportArchive \
+            -archivePath $CM_BUILD_DIR/$XCODE_SCHEME.xcarchive \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath $CM_BUILD_DIR/ExportedIPA
+
+    artifacts:
+      - ExportedIPA/*.ipa
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        apple_id: mohdanan123@gmail.com
+        password: Cheruvath@321
+        team_id: Z8RZ73XQCY
+        app_id: com.ananapp.stockbarcodereaderk
+        
